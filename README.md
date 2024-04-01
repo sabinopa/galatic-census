@@ -9,7 +9,7 @@ Este projeto foi desenvolvido como parte de um desafio de codificação para pra
 ### Tecnologias Utilizadas
 
 - ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-- ![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)(ES6+)
+- ![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 - [SWAPI](https://swapi.dev) - Star Wars API
 
 ### Funcionalidades
@@ -24,4 +24,4 @@ Este projeto foi desenvolvido como parte de um desafio de codificação para pra
 Para executar este projeto localmente, clone o repositório para a sua máquina local:
 
 ```bash
-git clone https://seu-repositorio-aqui.git
+git clone https://github.com/sabinopa/galatic-census.git
