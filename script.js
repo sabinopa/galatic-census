@@ -1,9 +1,3 @@
-const imagensPlanetas = {
-  "Tatooine": "https://en.wikipedia.org/wiki/Tatooine#/media/File:Tatooine_(fictional_desert_planet).jpg",
-  "Alderaan": "url_da_imagem_de_alderaan_aqui.jpg",
-  // Adicione outros planetas conforme necessário
-};
-
 function fetchPlanets() {
     fetch('https://swapi.dev/api/planets/?format=json')
         .then(response => response.json())
@@ -60,11 +54,50 @@ function displayPlanetDetails(planet) {
             <td>${planet.terrain}</td>
         </tr>`;
     table.appendChild(tbody);
-
     tableResponsive.appendChild(table);
     cardBody.appendChild(tableResponsive);
     card.appendChild(cardBody);
     detailsContainer.appendChild(card);
+
+if (planet.residents.length > 0) {
+  const residentsPromises = planet.residents.map(url =>
+      fetch(url + '?format=json').then(response => response.json())
+  );
+
+  Promise.all(residentsPromises)
+      .then(residents => {
+          const residentsHeader = document.createElement('h5');
+          residentsHeader.className = 'card-title';
+          residentsHeader.textContent = 'Residentes Famosos';
+          cardBody.appendChild(residentsHeader);
+
+          const residentsTable = document.createElement('table');
+          residentsTable.className = 'table';
+          const theadResidents = document.createElement('thead');
+          theadResidents.innerHTML = `
+              <tr>
+                  <th>Nome</th>
+                  <th>Data de Nascimento</th>
+              </tr>`;
+          residentsTable.appendChild(theadResidents);
+
+          const tbodyResidents = document.createElement('tbody');
+          residents.forEach(resident => {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `<td>${resident.name}</td><td>${resident.birth_year}</td>`;
+              tbodyResidents.appendChild(tr);
+          });
+          residentsTable.appendChild(tbodyResidents);
+          cardBody.appendChild(residentsTable);
+      })
+      .catch(error => console.error('Erro ao buscar detalhes dos residentes:', error));
+} else {
+  const noResidentsMsg = document.createElement('p');
+  noResidentsMsg.textContent = 'Nenhum residente famoso encontrado.';
+  cardBody.appendChild(noResidentsMsg);
+}
+
+detailsContainer.appendChild(card); 
 }
 
 function searchPlanets() {
