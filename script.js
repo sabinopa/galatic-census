@@ -1,3 +1,9 @@
+const imagensPlanetas = {
+  "Tatooine": "https://en.wikipedia.org/wiki/Tatooine#/media/File:Tatooine_(fictional_desert_planet).jpg",
+  "Alderaan": "url_da_imagem_de_alderaan_aqui.jpg",
+  // Adicione outros planetas conforme necessário
+};
+
 function fetchPlanets() {
     fetch('https://swapi.dev/api/planets/?format=json')
         .then(response => response.json())
@@ -21,10 +27,44 @@ function displayPlanets(planets) {
 
 function displayPlanetDetails(planet) {
     const detailsContainer = document.getElementById('search-results');
-    detailsContainer.innerHTML = `<p><b>Nome:</b> ${planet.name}</p>
-                                  <p><b>Clima:</b> ${planet.climate}</p>
-                                  <p><b>População:</b> ${planet.population}</p>
-                                  <p><b>Terreno:</b> ${planet.terrain}</p>`;
+    detailsContainer.innerHTML = ''; 
+
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+
+    const tableResponsive = document.createElement('div');
+    tableResponsive.className = 'table-responsive';
+
+    const table = document.createElement('table');
+    table.className = 'table table-xs mb-0';
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `
+        <tr>
+            <th>Nome</th>
+            <th>Clima</th>
+            <th>População</th>
+            <th>Terreno</th>
+        </tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    tbody.innerHTML = `
+        <tr>
+            <td>${planet.name}</td>
+            <td>${planet.climate}</td>
+            <td>${planet.population}</td>
+            <td>${planet.terrain}</td>
+        </tr>`;
+    table.appendChild(tbody);
+
+    tableResponsive.appendChild(table);
+    cardBody.appendChild(tableResponsive);
+    card.appendChild(cardBody);
+    detailsContainer.appendChild(card);
 }
 
 function searchPlanets() {
